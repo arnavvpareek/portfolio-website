@@ -17,6 +17,12 @@ Whenever Arnav pastes a component prompt or third-party component code, treat it
 
 - **Add a project**: interview Arnav for the facts (what it does, methodology, real results/metrics, repo URL — never invent any of these), draft the card copy into COPY.md for approval, then add a new `<article class="project-card reveal tilt-card">` block in index.html following the two existing cards. The card grid is extensible by design (DESIGN.md log #11).
 - **Remove a project**: delete its `<article>` block and mark its COPY.md section as retired (don't silently delete copy history).
-- **Resume**: drop `resume.pdf` into the project root — both "Resume — coming soon" buttons flip to live "Download Resume" automatically on next page load (main.js probes for the file). No code change needed.
+- **Resume**: drop `resume.pdf` into the project root — both "Resume — coming soon" buttons flip to live "Download Resume" automatically on next page load (main.js probes for the file). No code change needed; for the live site, redeploy after adding the file.
 - Every design change gets a dated row in the DESIGN.md decision log. Copy changes go through COPY.md first.
 - The site is deliberately zero-dependency static HTML/CSS/JS — do not introduce frameworks or build steps for maintenance tasks.
+
+## Deployment
+
+Production: **https://arnav-pareek-portfolio.vercel.app** (Vercel project `arnav-pareek-portfolio`, deployed 2026-07-06 via Vercel CLI, account pareekarnav16@gmail.com).
+
+To ship changes: commit to git, then run `vercel deploy --prod --yes` from the project root. There is no build step — Vercel serves the static files directly.
