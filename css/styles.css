@@ -1,0 +1,730 @@
+/* ==========================================================================
+   Arnav Pareek — Portfolio
+   Tokens per DESIGN.md. Dark-canvas revision (Vivid+Co reference):
+   obsidian canvas, bone-white type, slate hero wash, bone inverted contact
+   band. Pitch green + Space Grotesk/Inter kept per the governing rule —
+   the site's colours and fonts win. See DESIGN.md decision log #23+.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Colours */
+  --color-canvas: #101010;          /* Obsidian — page canvas (Vivid+Co) */
+  --color-surface: #181d21;         /* card surface — slate-tinted lift over canvas */
+  --color-veil: #495764;            /* Graphite Veil — hero wash only (Vivid+Co) */
+  --color-text: #fffdf9;            /* Bone White — primary type (Vivid+Co) */
+  --color-text-muted: rgba(255, 253, 249, 0.65);
+  --color-text-faint: rgba(255, 253, 249, 0.45);
+  --color-hairline: rgba(255, 253, 249, 0.12);
+  --color-pitch: #0e7a4e;           /* THE accent — ours, unchanged */
+  --color-pitch-bright: #3fbf83;    /* pitch legibility cut for dark canvas */
+  --color-pitch-tint: rgba(24, 158, 101, 0.16);
+  --color-bone: #fffdf9;            /* inverted band surface (Vivid+Co Bone Card) */
+  --color-ink: #1a1713;             /* text on the inverted band — ours */
+  --color-ink-muted: rgba(26, 23, 19, 0.70);
+  --color-ink-faint: rgba(26, 23, 19, 0.45);
+  --color-ink-hairline: rgba(26, 23, 19, 0.12);
+  --color-cream-signal: #ffe9c2;
+
+  /* Fonts — ours */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Type scale */
+  --text-caption: 13px;    --leading-caption: 1.4;
+  --text-body-sm: 15px;    --leading-body-sm: 1.45;
+  --text-body: 17px;       --leading-body: 1.55;
+  --text-subheading: 21px; --leading-subheading: 1.3;
+  --text-heading-sm: 28px; --leading-heading-sm: 1.15;
+  --text-heading: 40px;    --leading-heading: 1.05;
+  --text-heading-lg: 56px; --leading-heading-lg: 1.0;
+  --text-display: clamp(48px, 9vw, 76px); --leading-display: 0.95;
+
+  /* Layout */
+  --page-max-width: 1100px;
+  --section-gap: 112px;
+  --card-padding: clamp(28px, 4vw, 48px);
+  --element-gap: 12px;
+  --nav-height: 72px;
+
+  /* Radius — two families only */
+  --radius-cards: 8px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-glide: cubic-bezier(0.19, 1, 0.22, 1);
+  --duration-reveal: 0.8s;
+  --duration-hover: 0.2s;
+}
+
+/* ---------- Reset & base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + 16px);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--color-pitch-bright);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.container {
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 40px);
+}
+
+/* ---------- Navigation ---------- */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background: transparent;
+  transition: background-color var(--duration-hover) ease, border-color var(--duration-hover) ease;
+  border-bottom: 1px solid transparent;
+}
+
+.nav.scrolled {
+  background: var(--color-canvas);
+  border-bottom-color: var(--color-hairline);
+}
+
+.nav-inner {
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 40px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+
+.wordmark-mono { display: none; }
+
+.nav-links {
+  display: flex;
+  gap: clamp(16px, 3vw, 32px);
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: color var(--duration-hover) ease;
+}
+
+.nav-links a:hover { color: var(--color-text); }
+.nav-links a.active { color: var(--color-pitch-bright); }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--nav-height);
+  /* slate-to-black wash — the reference's one permitted canvas gradient */
+  background: radial-gradient(ellipse 70% 50% at 50% 36%,
+              rgba(73, 87, 100, 0.32), transparent 72%);
+}
+
+/* Flowing path field behind the hero (donor: BackgroundPaths — skeleton only).
+   Bone-white strokes at low alpha; drift + pulse via CSS keyframes. */
+.hero-paths {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+body.loaded .hero-paths { opacity: 1; }
+
+.hero-paths svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform, opacity;
+}
+
+/* Drift the two layers as wholes (transform/opacity composite on the GPU —
+   per-path dash animation repaints every frame and starves slow renderers) */
+.hero-paths svg:first-child {
+  animation: hero-drift-a 46s ease-in-out infinite alternate;
+}
+
+.hero-paths svg:last-child {
+  animation: hero-drift-b 38s ease-in-out infinite alternate;
+}
+
+@keyframes hero-drift-a {
+  from { transform: translate3d(-1.5%, -1%, 0) scale(1.08); opacity: 0.55; }
+  50%  { opacity: 1; }
+  to   { transform: translate3d(1.5%, 1.2%, 0) scale(1.12); opacity: 0.55; }
+}
+
+@keyframes hero-drift-b {
+  from { transform: translate3d(1.5%, 1%, 0) scale(1.1); opacity: 1; }
+  50%  { opacity: 0.5; }
+  to   { transform: translate3d(-1.5%, -1.2%, 0) scale(1.06); opacity: 1; }
+}
+
+/* Flowing streams — dash pattern drifts along every other curve.
+   pathLength=1 + dasharray summing to 1 makes a 1-unit offset loop seamless. */
+.hero-paths path.flow {
+  animation: hero-path-flow linear infinite;
+}
+
+/* While the page is actively scrolling, pause the paint-heavy dash flow so
+   scroll frames never compete with stroke repaints — the GPU-composited
+   layer drift keeps running, and the flow resumes the moment scrolling stops. */
+.hero-paths.scroll-paused path.flow {
+  animation-play-state: paused;
+}
+
+@keyframes hero-path-flow {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+
+.hero-stack {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0;
+  width: 100%;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-display);
+  line-height: var(--leading-display);
+  letter-spacing: -0.035em;
+}
+
+.hero-role {
+  margin-top: 24px;
+  font-size: var(--text-subheading);
+  line-height: var(--leading-subheading);
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+}
+
+.hero-lede {
+  margin-top: 32px;
+  max-width: 620px;
+  color: var(--color-text-muted);
+}
+
+.hl-pill {
+  background: var(--color-cream-signal);
+  border-radius: var(--radius-pill);
+  padding: 1px 10px 2px;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.hero-ctas {
+  margin-top: 48px;
+  display: flex;
+  gap: var(--element-gap);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Hero load sequence */
+[data-load] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--duration-reveal) var(--ease-glide),
+              transform var(--duration-reveal) var(--ease-glide);
+}
+body.loaded [data-load] { opacity: 1; transform: none; }
+body.loaded [data-load="2"] { transition-delay: 0.3s; }
+body.loaded [data-load="3"] { transition-delay: 0.45s; }
+body.loaded [data-load="4"] { transition-delay: 0.6s; }
+
+/* Letter-stagger entrance on the hero name (donor: BackgroundPaths headline).
+   Words stay unbreakable; each letter rises on its own delay (--d). */
+.hero-name .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero-name .word + .word { margin-left: 0.28em; }
+
+.hero-name .ch {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.55em);
+  transition: opacity 0.7s var(--ease-glide),
+              transform 0.7s var(--ease-glide);
+  transition-delay: var(--d, 0s);
+}
+
+body.loaded .hero-name .ch { opacity: 1; transform: none; }
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+  line-height: 1.25;
+  padding: 13px 28px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color var(--duration-hover) ease,
+              color var(--duration-hover) ease,
+              border-color var(--duration-hover) ease;
+}
+
+.btn-primary {
+  background: var(--color-pitch);
+  color: #ffffff;
+}
+.btn-primary:hover { background: #12945f; }
+
+.btn-secondary {
+  background: var(--color-pitch-tint);
+  color: var(--color-pitch-bright);
+}
+.btn-secondary:hover { background: rgba(24, 158, 101, 0.24); }
+
+.btn-secondary.is-disabled {
+  background: rgba(255, 253, 249, 0.06);
+  color: var(--color-text-faint);
+  cursor: not-allowed;
+}
+.btn-secondary.is-disabled:hover { background: rgba(255, 253, 249, 0.06); }
+
+.btn-ghost {
+  background: transparent;
+  border-color: rgba(255, 253, 249, 0.55);
+  color: var(--color-text);
+}
+.btn-ghost:hover {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-canvas);
+}
+
+/* Contact-band buttons — dark outline on the bone inverted surface */
+.btn-ghost-light {
+  background: transparent;
+  border-color: rgba(26, 23, 19, 0.55);
+  color: var(--color-ink);
+}
+.btn-ghost-light:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-bone);
+}
+
+.btn-block { width: 100%; }
+
+.arrow { font-size: 13px; translate: 0 -1px; }
+
+/* ---------- Pitch divider (signature motif) ---------- */
+
+.pitch-divider {
+  position: relative;
+  height: 1px;
+  background: var(--color-hairline);
+  background-clip: content-box;
+}
+
+.pitch-divider::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-pill);
+  background: var(--color-canvas);
+}
+
+.pitch-divider::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translate(-50%, -50%);
+  border-radius: var(--radius-pill);
+  background: var(--color-text-faint);
+}
+
+/* ---------- Sections ---------- */
+
+.section { padding-top: var(--section-gap); }
+.section:last-of-type { padding-bottom: var(--section-gap); }
+#about { padding-bottom: var(--section-gap); }
+
+.caption {
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.caption-dark { color: var(--color-ink-faint); }
+
+.section-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(30px, 4.5vw, var(--text-heading));
+  line-height: var(--leading-heading);
+  letter-spacing: -0.02em;
+  max-width: 760px;
+  margin-top: 20px;
+}
+
+/* ---------- Projects ---------- */
+
+.project-list {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  /* stage for the scroll-scrubbed card flatten (donor: ContainerScroll) */
+  perspective: 1200px;
+}
+
+.project-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-cards);
+  padding: var(--card-padding);
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(32px, 4vw, 56px);
+}
+
+.project-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, var(--text-heading-sm));
+  line-height: var(--leading-heading-sm);
+  letter-spacing: -0.015em;
+}
+
+.project-body {
+  margin-top: 20px;
+  color: var(--color-text-muted);
+}
+
+.project-body strong,
+.findings strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.metric {
+  border-left: 3px solid var(--color-pitch-bright);
+  padding-left: 16px;
+}
+
+.findings-label { margin-top: 20px; }
+
+.findings {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.findings li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+}
+
+.findings li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--color-text-faint);
+}
+
+.project-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: flex-start;
+}
+
+.tag {
+  background: var(--color-pitch-tint);
+  color: var(--color-pitch-bright);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+}
+
+.project-side .btn { align-self: flex-start; }
+
+/* ---------- Skills ---------- */
+
+.skills-table {
+  margin-top: 64px;
+  border-top: 1px solid var(--color-hairline);
+}
+
+.skills-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: start;
+  padding-block: 24px;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.skills-group {
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  padding-top: 5px;
+}
+
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-pills li {
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1;
+  padding: 8px 14px;
+  transition: border-color var(--duration-hover) ease, color var(--duration-hover) ease;
+}
+
+.skill-pills li:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+/* ---------- About ---------- */
+
+.about-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+}
+
+.about-lead {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(21px, 2.6vw, var(--text-heading-sm));
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--color-text);
+}
+
+.about-prose p + p {
+  margin-top: 24px;
+  color: var(--color-text-muted);
+}
+
+.about-prose strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.about-facts {
+  background: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-cards);
+  padding: 28px;
+}
+
+.fact {
+  padding-block: 14px;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.fact:first-child { padding-top: 0; }
+
+.fact dt {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.fact dd {
+  margin-top: 6px;
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+  color: var(--color-text);
+}
+
+.about-facts .btn { margin-top: 24px; }
+
+/* ---------- Contact (bone inverted band) ---------- */
+
+.contact-band {
+  margin-top: -1px;
+  background: var(--color-bone);
+  color: var(--color-ink);
+  padding-block: var(--section-gap) 56px;
+  text-align: left;
+}
+
+.contact-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(32px, 5vw, var(--text-heading-lg));
+  line-height: var(--leading-heading-lg);
+  letter-spacing: -0.03em;
+  margin-top: 20px;
+  max-width: 700px;
+}
+
+.contact-sub {
+  margin-top: 24px;
+  color: var(--color-ink-muted);
+  max-width: 560px;
+}
+
+.contact-links {
+  margin-top: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--element-gap);
+}
+
+.contact-band :focus-visible {
+  outline-color: var(--color-pitch);
+}
+
+.fine-print {
+  margin-top: 96px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-ink-hairline);
+  font-size: 13px;
+  color: var(--color-ink-faint);
+}
+
+/* ---------- Scroll reveals ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity var(--duration-reveal) var(--ease-glide),
+              transform var(--duration-reveal) var(--ease-glide);
+}
+
+.reveal.in { opacity: 1; transform: none; }
+
+/* Tilt cards scrub their transform from JS — reveal handles opacity only,
+   so the 0.8s glide never fights the scroll-linked rotateX/scale */
+.project-card.tilt-card {
+  transition: opacity var(--duration-reveal) var(--ease-glide);
+  will-change: transform;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  :root { --section-gap: 72px; }
+
+  .project-card { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .skills-row { grid-template-columns: 1fr; gap: 12px; }
+  .skills-group { padding-top: 0; }
+}
+
+@media (max-width: 480px) {
+  .wordmark-full { display: none; }
+  .wordmark-mono { display: inline; }
+  .hero-ctas .btn { width: 100%; }
+  .contact-links .btn { width: 100%; }
+}
+
+/* ---------- Static mode (?static — screenshots/debug) ---------- */
+
+html.static [data-load],
+html.static .reveal,
+html.static .hero-name .ch {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+html.static .hero-paths { opacity: 1; transition: none; }
+html.static .hero-paths svg,
+html.static .hero-paths path { animation: none; }
+html.static { scroll-behavior: auto; }
+
+/* Note: no prefers-reduced-motion block by owner decision (DESIGN.md log #29) —
+   animations run for all visitors. ?static remains for tooling. */
