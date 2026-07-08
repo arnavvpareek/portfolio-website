@@ -73,7 +73,7 @@ All copy below is final draft — review before build.
 
 **Target searches:** "Netflix EDA python", "ANOVA python analysis", "Netflix data analysis project"
 
-### Project card 3 — LLM-Powered Data Analysis Assistant *(added 2026-07-08, facts sourced from the repo README)*
+### Project card 3 — LLM-Powered Data Analysis Assistant *(added 2026-07-08, facts sourced from the repo README; displays 2nd on the site, above Netflix EDA, per Arnav 2026-07-08)*
 
 **Card title (H3):**
 > LLM-Powered Data Analysis Assistant — Chat with Any CSV

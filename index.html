@@ -70,6 +70,25 @@
             </div>
           </article>
 
+          <article class="project-card reveal tilt-card" id="project-llm">
+            <div class="project-main">
+              <h3 class="project-title">LLM-Powered Data Analysis Assistant — Chat with Any CSV</h3>
+              <p class="project-body">Upload a CSV, ask a question in plain English, and get the answer — plus the pandas code that computed it. A hand-built ReAct agent loop (~200 lines, no agent frameworks): the LLM sees only the dataframe schema, writes one pandas expression, runs it in a three-layer sandbox against the real data, and phrases the result. Pandas does the math, not the LLM.</p>
+              <p class="project-body metric"><strong>Schema-only prompting means a 10-million-row CSV costs the same tokens as a 10-row file</strong> — with honest UNANSWERABLE refusals instead of hallucinations, and real errors shown instead of plausible-sounding wrong answers.</p>
+            </div>
+            <div class="project-side">
+              <ul class="tag-list" aria-label="Technologies">
+                <li class="tag">Python</li>
+                <li class="tag">LangChain</li>
+                <li class="tag">Groq (Llama 3.3 70B)</li>
+                <li class="tag">Streamlit</li>
+                <li class="tag">ReAct agent</li>
+                <li class="tag">Pandas</li>
+              </ul>
+              <a class="btn btn-ghost" href="https://github.com/arnavvpareek/csv-chat-assistant" target="_blank" rel="noopener">Explore the agent's code on GitHub<span class="arrow" aria-hidden="true">&#8599;</span></a>
+            </div>
+          </article>
+
           <article class="project-card reveal tilt-card" id="project-netflix">
             <div class="project-main">
               <h3 class="project-title">Netflix Catalog EDA — Python Data Analysis with ANOVA Testing</h3>
@@ -90,25 +109,6 @@
                 <li class="tag">Matplotlib</li>
               </ul>
               <a class="btn btn-ghost" href="https://github.com/arnavvpareek/Netflix-EDA" target="_blank" rel="noopener">Read the full analysis on GitHub<span class="arrow" aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
-
-          <article class="project-card reveal tilt-card" id="project-llm">
-            <div class="project-main">
-              <h3 class="project-title">LLM-Powered Data Analysis Assistant — Chat with Any CSV</h3>
-              <p class="project-body">Upload a CSV, ask a question in plain English, and get the answer — plus the pandas code that computed it. A hand-built ReAct agent loop (~200 lines, no agent frameworks): the LLM sees only the dataframe schema, writes one pandas expression, runs it in a three-layer sandbox against the real data, and phrases the result. Pandas does the math, not the LLM.</p>
-              <p class="project-body metric"><strong>Schema-only prompting means a 10-million-row CSV costs the same tokens as a 10-row file</strong> — with honest UNANSWERABLE refusals instead of hallucinations, and real errors shown instead of plausible-sounding wrong answers.</p>
-            </div>
-            <div class="project-side">
-              <ul class="tag-list" aria-label="Technologies">
-                <li class="tag">Python</li>
-                <li class="tag">LangChain</li>
-                <li class="tag">Groq (Llama 3.3 70B)</li>
-                <li class="tag">Streamlit</li>
-                <li class="tag">ReAct agent</li>
-                <li class="tag">Pandas</li>
-              </ul>
-              <a class="btn btn-ghost" href="https://github.com/arnavvpareek/csv-chat-assistant" target="_blank" rel="noopener">Explore the agent's code on GitHub<span class="arrow" aria-hidden="true">&#8599;</span></a>
             </div>
           </article>
 
