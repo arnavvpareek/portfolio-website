@@ -73,6 +73,22 @@ All copy below is final draft — review before build.
 
 **Target searches:** "Netflix EDA python", "ANOVA python analysis", "Netflix data analysis project"
 
+### Project card 3 — LLM-Powered Data Analysis Assistant *(added 2026-07-08, facts sourced from the repo README)*
+
+**Card title (H3):**
+> LLM-Powered Data Analysis Assistant — Chat with Any CSV
+
+**Body copy:**
+> Upload a CSV, ask a question in plain English, and get the answer — plus the pandas code that computed it. A hand-built ReAct agent loop (~200 lines, no agent frameworks): the LLM sees only the dataframe schema, writes one pandas expression, runs it in a three-layer sandbox against the real data, and phrases the result. Pandas does the math, not the LLM.
+>
+> **Schema-only prompting means a 10-million-row CSV costs the same tokens as a 10-row file** — with honest UNANSWERABLE refusals instead of hallucinations, and real errors shown instead of plausible-sounding wrong answers.
+
+**Tags:** Python · LangChain · Groq (Llama 3.3 70B) · Streamlit · ReAct agent · Pandas
+
+**CTA:** **Explore the agent's code on GitHub** → `github.com/arnavvpareek/csv-chat-assistant`
+
+**Target searches:** "LLM data analysis assistant", "chat with CSV LLM", "ReAct agent pandas", "LangChain CSV agent"
+
 **Extensibility note (not copy):** cards are a repeatable component — IPL EDA and Zomato EDA drop in later with no rebuild.
 
 ---
