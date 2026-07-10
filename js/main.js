@@ -214,7 +214,10 @@
         glCurrent = glTarget;
         glActive = false;
       }
-      window.scrollTo(0, glCurrent);
+      // behavior:'instant' is load-bearing — plain scrollTo obeys the CSS
+      // scroll-behavior:smooth (active when the OS allows animations), and a
+      // browser-animated scroll restarting every frame freezes the page.
+      window.scrollTo({ top: glCurrent, behavior: 'instant' });
       if (glActive) requestAnimationFrame(glStep);
     };
 
